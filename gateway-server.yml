@@ -1,10 +1,10 @@
 server:
   port: 8072
   
-logstash.host: 3.136.161.26:5000
+#logstash.host: 3.136.161.26:5000
  
-logging: 
-  config: classpath:logback-delayed.xml
+#logging: 
+#  config: classpath:logback-delayed.xml
   
  
 eureka:
@@ -17,11 +17,11 @@ eureka:
       defaultZone: http://eurekaserver:8070/eureka/
       
 spring:
-  zipkin:
-    baseUrl: http://zipkin:9411
-  sleuth:
-    sampler:
-      percentage: 1
+#  zipkin:
+#    baseUrl: http://zipkin:9411
+#  sleuth:
+#    sampler:
+#      percentage: 1
   cloud:
     loadbalancer.ribbon.enabled: false
     gateway:
@@ -42,15 +42,15 @@ spring:
           - RemoveRequestHeader= Cookie,Set-Cookie
 
 
-keycloak:
-    auth-server-url: http://localhost:8080/auth
-    bearer-only: true
-    credentials:
-        secret: 5988f899-a5bf-4f76-b15f-f1cd0d2c81ba
-    realm: spmia-realm
-    resource: ostock
-    ssl-required: external
-    use-resource-role-mappings: true    
+#keycloak:
+#    auth-server-url: http://localhost:8080/auth
+#    bearer-only: true
+#    credentials:
+#        secret: 5988f899-a5bf-4f76-b15f-f1cd0d2c81ba
+#    realm: spmia-realm
+#    resource: ostock
+#    ssl-required: external
+#    use-resource-role-mappings: true    
     
 management:
   endpoints:
