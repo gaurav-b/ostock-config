@@ -86,23 +86,31 @@ services:
                - "kibana"
    logstash:
       image: docker.elastic.co/logstash/logstash:7.7.0
-      #command: logstash -f /etc/logstash/conf.d/logstash.conf
       command: logstash -f /usr/share/logstash/pipeline/logstash.conf
       volumes:
-         #- ./config:/etc/logstash/conf.d
          - ./config:/usr/share/logstash/pipeline
       ports:
          - 5000:5000
-      #depends_on:
-      #   elasticsearch:
-      #      condition: service_started
       networks:
          backend:
             aliases:
-               - "logstash"   
+               - "logstash"
+   zipkin: 
+      image: openzipkin/zipkin 
+      container_name: zipkin
+      depends_on: 
+         - elasticsearch
+      environment: 
+         - STORAGE_TYPE=elasticsearch
+         - "ES_HOSTS=elasticsearch:9300"
+      ports:
+         - "9411:9411"
+      networks:
+         backend:
+            aliases:
+               - "zipkin"               
    configserver:
       image: ostock/configserver:0.0.1-SNAPSHOT
-      #build: ../configserver/
       ports:
          - "8071:8071"
       environment:
@@ -111,15 +119,8 @@ services:
          backend:
             aliases:
                - "configserver"
-#      healthcheck:
-#         test: ["CMD", "curl", "--fail", "--silent", "http://localhost:8071/actuator/health 2>&1 | grep UP || exit 1"]
-#         interval: 20s
-#         timeout: 5s
-#         retries: 5
-#         start_period: 40s 
    eurekaserver:
       image: ostock/eurekaserver:0.0.1-SNAPSHOT
-      #build: ../eurekaserver/
       environment:
          EUREKA_INSTANCE_HOSTNAME: "eurekaserver"
          SPRING_PROFILES_ACTIVE: "dev"
@@ -184,7 +185,6 @@ services:
                - "authenticationservice"
    licensingservice:
       image: ostock/licensing-service:0.0.3-SNAPSHOT
-      #build: ../licensing-service/
       environment:
          SPRING_PROFILES_ACTIVE: "dev"
          SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
@@ -212,7 +212,6 @@ services:
          - backend
    organizationservice:
       image: ostock/organization-service:0.0.1-SNAPSHOT
-      #build: ../organization-service/
       environment:
          SPRING_PROFILES_ACTIVE: "dev"
          SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
