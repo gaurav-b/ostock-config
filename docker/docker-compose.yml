@@ -110,7 +110,7 @@ services:
             aliases:
                - "zipkin"               
    configserver:
-      image: ostock/configserver:0.0.1-SNAPSHOT
+      image: gaurav619/configserver
       ports:
          - "8071:8071"
       environment:
@@ -120,7 +120,7 @@ services:
             aliases:
                - "configserver"
    eurekaserver:
-      image: ostock/eurekaserver:0.0.1-SNAPSHOT
+      image: gaurav619/eurekaserver
       environment:
          EUREKA_INSTANCE_HOSTNAME: "eurekaserver"
          SPRING_PROFILES_ACTIVE: "dev"
@@ -139,7 +139,7 @@ services:
             aliases:
                - "eurekaserver"
    gatewayserver:
-      image: ostock/gatewayserver:0.0.1-SNAPSHOT
+      image: gaurav619/gatewayserver
       ports:
          - "8072:8072"
       environment:
@@ -162,7 +162,7 @@ services:
             aliases:
                - "gateway"
    authenticationservice:
-      image: ostock/authentication-service:0.0.1-SNAPSHOT
+      image: gaurav619/authentication-service
       environment:
          SPRING_PROFILES_ACTIVE: "dev"
          SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
@@ -184,7 +184,7 @@ services:
             aliases:
                - "authenticationservice"
    licensingservice:
-      image: ostock/licensing-service:0.0.3-SNAPSHOT
+      image: gaurav619/licensing-service
       environment:
          SPRING_PROFILES_ACTIVE: "dev"
          SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
@@ -211,7 +211,7 @@ services:
       networks:
          - backend
    organizationservice:
-      image: ostock/organization-service:0.0.1-SNAPSHOT
+      image: gaurav619/organization-service
       environment:
          SPRING_PROFILES_ACTIVE: "dev"
          SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
