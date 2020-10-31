@@ -95,20 +95,20 @@ services:
          backend:
             aliases:
                - "logstash"
-   zipkin: 
-      image: openzipkin/zipkin 
-      container_name: zipkin
-      depends_on: 
-         - elasticsearch
-      environment: 
-         - STORAGE_TYPE=elasticsearch
-         - "ES_HOSTS=elasticsearch:9300"
-      ports:
-         - "9411:9411"
-      networks:
-         backend:
-            aliases:
-               - "zipkin"               
+#   zipkin: 
+#      image: openzipkin/zipkin 
+#      container_name: zipkin
+#      depends_on: 
+#         - elasticsearch
+#      environment: 
+#         - STORAGE_TYPE=elasticsearch
+#         - "ES_HOSTS=elasticsearch:9300"
+#      ports:
+#         - "9411:9411"
+#      networks:
+#         backend:
+#            aliases:
+#               - "zipkin"               
    configserver:
       image: gaurav619/configserver
       ports:
